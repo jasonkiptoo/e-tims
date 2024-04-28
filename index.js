@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-async function scrapeSite(keyword) {
+async function scrapeSite() {
 	const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
 	const { data } = await axios.get(url);
 	
@@ -9,6 +9,9 @@ async function scrapeSite(keyword) {
 
 	
 	const spans = [];
+
+    console.log($, "dollar");
+
 $('span').each((_idx, el) => {
 	const span = $(el).text();
 	spans.push(span);
@@ -17,7 +20,6 @@ $('span').each((_idx, el) => {
 return spans;
 }
 
-const keyword = "coffee"; // change with any keyword you want
-scrapeSite(keyword).then(result => {
+scrapeSite().then(result => {
 	console.log(result)
 	}).catch(err => console.log(err));
