@@ -2,24 +2,32 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 async function scrapeSite() {
-	const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
-	const { data } = await axios.get(url);
-	
-	const $ = cheerio.load(data);
+    const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
+    const { data } = await axios.get(url);
+    const $ = cheerio.load(data);
 
-	
-	const spans = [];
+    const clientDetails = [];
 
-    console.log($, "dollar");
+    $('div.topinfo').each((i, el) => {
+        const text = $(el).text().replace(/\s+/g, ' ').trim(); // Replace multiple spaces with a single space
+        const cleanedText = text.replace(/\n|\t/g, ''); // Remove '\n' and '\t' characters
+        const lines = cleanedText.split('\n').map(line => line.trim()).filter(line => line !== '');
 
-$('span').each((_idx, el) => {
-	const span = $(el).text();
-	spans.push(span);
-});
+        clientDetails.push(lines);
+    });
 
-return spans;
+    // const {kraPin, supplierName, invoiceDate, invoiceNumber, Item, taxableAmount, totalVat, totalInvoice} = 
+
+    const totalAmount= $('span.value').each((i, el)=> {return $(el).text()})
+
+
+    console.log("totala", totalAmount);
+
+
+
+    return clientDetails;
 }
 
 scrapeSite().then(result => {
-	console.log(result)
-	}).catch(err => console.log(err));
+    console.log(result);
+}).catch(err => console.log(err));
