@@ -1,22 +1,28 @@
 const axios = require('axios');
-const cheerio = require('cheerio'); 
+const cheerio = require('cheerio');
 
-const getData = async()=>{
-console.log("data");
+const getData = async () => {
+  const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
 
+  try {
+    const { data } = await axios.get(url);
+    const $ = cheerio.load(data);
 
-const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
+    const totalAmounts = [];
 
-const {data }= await axios.get(url)
+    $('div.total-detail').find('div').each((index, element) => {
+      const title = $(element).find('.tit').text().trim();
+      const value = $(element).find('.value').text().trim();
 
-// use cherio to parse the data
-const cheery= cheerio.load(data)
+      if (title === 'TOTAL') {
+        totalAmounts.push({total:'Total' ,totalValue:value});
+      }
+    });
 
+    console.log(totalAmounts);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
-
-console.log(cheery);
-}
-
-
-
-getData()
+getData();
