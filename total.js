@@ -24,16 +24,21 @@ const getData = async () => {
   } catch (error) {
     console.error('Error:', error);
   }
-
-
-
-
-  function getHeader(){
-
-
-
-  }
 };
+function getHeader(){
+    
+
+  try {
+
+      
+      
+  } catch (error) {
+      console.log(error);
+  }
+
+
+
+}
 
 
 

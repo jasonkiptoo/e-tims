@@ -1,10 +1,10 @@
-const moongose = require('moongose');
+const mongoose = require('mongoose');
 
-const urlSchema = new moongose.Shema({
-    url: {
-        type: String,
-        required:true
+const urlSchema = new mongoose.Schema({
+    headers: {
+        type: Object,
+        required:false
     }
 })
 
-module.exports = moongose.model("url", urlSchema)
+module.exports = mongoose.model("url", urlSchema)
