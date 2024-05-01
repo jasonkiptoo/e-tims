@@ -1,8 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
+
 const getData = async () => {
-  const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
 
   try {
     const { data } = await axios.get(url);
@@ -23,6 +24,18 @@ const getData = async () => {
   } catch (error) {
     console.error('Error:', error);
   }
+
+
+
+
+  function getHeader(){
+
+
+
+  }
 };
 
+
+
 getData();
+getHeader()
