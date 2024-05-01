@@ -44,21 +44,33 @@ async function scrapeSite() {
 
     const $ = cheerio.load(data);
 
-    const clientDetails = {};
+    let clientDetails = {};
 
-    $('tr').each((i, el) => {
-        const key = $(el).find('td').eq(0).text().trim().replace(/\n|\t/g, '');
-        const value = $(el).find('td').eq(1).text().trim().replace(/\n|\t/g, '');
-        if (key && value) { // To avoid empty keys or values
-            clientDetails[key] = value;
-        }
-    });
+    // $('table.tab3').find('tr').each((i, el) => {
+    //     const key = $(el).find('td').eq(0).text().trim().replace(/\n|\t/g, '');
+    //     const value = $(el).find('td').eq(1).text().trim().replace(/\n|\t/g, '');
+    //     if (key && value) { 
+    //         clientDetails[key] = value;
+    //     }
+    // });
+    clientDetails =$('table.tab3').find('table').each((i, el)=>{
+
+        console.log($(el).text().trim().replace(/\n|\t/g, ''))
+    //    return $(el).find('td').eq(0)
+
+    })
+    
+    
+    // .text().trim().replace(/\n|\t/g, '');
+
+
 
     return clientDetails;
 }
 
 scrapeSite()
     .then(result => {
-        console.log(JSON.stringify(result, null, 2));
+        console.log(result);
+        // console.log(JSON.stringify(result, null, 2));
     })
     .catch(err => console.log(err));
