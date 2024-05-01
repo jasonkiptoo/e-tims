@@ -45,7 +45,7 @@ mongoose
   })
   .then((res) => {
     console.log(process.env.MONGODB_URL, "url");
-    console.log("Conneced to db");
+    console.log("Connected to db");
   })
   .catch((err) => {
     console.log("eroor");

@@ -1,11 +1,17 @@
 const urlSchema = require('../models/url')
+const scrapeService = require("../services/getData.js")
 
 
 const getHeader =async(req, res)=>{
+    const url = req.body.url
 
-    const url = req.url
+    const data = await scrapeService.scrapeSite(url)
 
-    res.json(url)
+    console.log(data, "datatatatatat");
+
+
+
+    res.json(data)
 
 }
 
