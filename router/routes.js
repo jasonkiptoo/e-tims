@@ -1,4 +1,4 @@
-const { getHeader } = require('../controllers/url');
+const { getHeader } = require('../controllers/getDataController');
 const router = require('express').Router();
 
 router.get('/get-headers', getHeader);

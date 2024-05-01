@@ -1,4 +1,4 @@
-const urlSchema = require('../models/url')
+const urlSchema = require('../models/getDataModel.js')
 const scrapeService = require("../services/getData.js")
 
 
