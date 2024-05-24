@@ -1,33 +1,31 @@
 // const axios = require('axios');
 // const cheerio = require('cheerio');
 
-// async function scrapeSite() {
-//     const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
-//     const { data } = await axios.get(url);
-//     const $ = cheerio.load(data);
+// async function fetchData(url) {
+//     try {
+//         const response = await axios.get(url);
+//         const $ = cheerio.load(response.data);
+        
+//         const data = {};
 
-//     const clientDetails = [];
+//         // Extracting data using CSS selectors
+//         data["Control Unit Invoice Number"] = $('td:contains("Control Unit Invoice Number")').next().text().trim();
+//         data["Invoice Date"] = $('td:contains("Invoice Date")').next().text().trim();
+//         data["Total Taxable Amount"] = $('td:contains("Total Taxable Amount")').next().text().trim();
+//         data["Total Tax Amount"] = $('td:contains("Total Tax Amount")').next().text().trim();
+//         data["Total Invoice Amount"] = $('td:contains("Total Invoice Amount")').next().text().trim();
+//         data["Supplier Name"] = $('td:contains("Supplier Name")').next().text().trim();
 
-//     $('div.topinfo').each((i, el) => {
-//         const text = $(el).text().replace(/\s+/g, ' ').trim(); // Replace multiple spaces with a single space
-//         const cleanedText = text.replace(/\n|\t/g, ''); // Remove '\n' and '\t' characters
-//         const lines = cleanedText.split('\n').map(line => line.trim()).filter(line => line !== '');
-
-//         clientDetails.push(lines);
-//     });
-
-//     // const {kraPin, supplierName, invoiceDate, invoiceNumber, Item, taxableAmount, totalVat, totalInvoice} = 
-
-    
-
-
-//     return clientDetails;
+//         console.log(data);
+//         return data;
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//     }
 // }
 
-// scrapeSite().then(result => {
-//     console.log(result);
-// }).catch(err => console.log(err));
-
+// // Replace the URL with your actual URL
+// const url = 'https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920';
+// fetchData(url);
 
 
 

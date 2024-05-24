@@ -2,27 +2,26 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 
 async function scrapeSite(url) {
+    try {
+        const response = await axios.get(url);
+        const $ = cheerio.load(response.data);
+        
+        const data = {};
 
-    // const url = `https://etims.kra.go.ke/common/link/etims/receipt/indexEtimsReceiptData?Data=A003233471M00WDB6GNG3O3DKZ4NK`;
-    const { data } = await axios.get(url);
-    const $ = cheerio.load(data);
+        // Extracting data using CSS selectors
+        data["Control Unit Invoice Number"] = $('td:contains("Control Unit Invoice Number")').next().text().trim();
+        data["Invoice Date"] = $('td:contains("Invoice Date")').next().text().trim();
+        data["Total Taxable Amount"] = $('td:contains("Total Taxable Amount")').next().text().trim();
+        data["Total Tax Amount"] = $('td:contains("Total Tax Amount")').next().text().trim();
+        data["Total Invoice Amount"] = $('td:contains("Total Invoice Amount")').next().text().trim();
+        data["Supplier Name"] = $('td:contains("Supplier Name")').next().text().trim();
 
-    const clientDetails = [];
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 
-    $('div.topinfo').each((i, el) => {
-        const text = $(el).text().replace(/\s+/g, ' ').trim(); // Replace multiple spaces with a single space
-        const cleanedText = text.replace(/\n|\t/g, ''); // Remove '\n' and '\t' characters
-        const lines = cleanedText.split('\n').map(line => line.trim()).filter(line => line !== '');
-
-        clientDetails.push(lines);
-    });
-
-    // const {kraPin, supplierName, invoiceDate, invoiceNumber, Item, taxableAmount, totalVat, totalInvoice} = 
-
-    
-
-
-    return clientDetails;
 }
 
 scrapeSite().then(result => {
