@@ -31,14 +31,14 @@
 //     return result
 // }).catch(err => console.log(err));
 
-// // module.exports = {scrapeMe, scrapeSite}
+// module.exports = { scrapeSite}
 
 
 const axios = require('axios');
 const cheerio = require('cheerio');
 
 async function scrapeSite() {
-    const url = `https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058920`;
+    const url = `https://itax.kra.go.ke/KRA-Portal/invoiceChk.htm?actionCode=loadPage&invoiceNo=0040804130000058917`;
 
     const { data } = await axios.get(url);
 
